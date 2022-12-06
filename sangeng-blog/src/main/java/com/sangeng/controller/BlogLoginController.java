@@ -18,7 +18,7 @@ public class BlogLoginController {
     private BlogLoginService blogLoginService;
 
 
-    @PostMapping("/ ")
+    @PostMapping("/login")
     public ResponseResult login(@RequestBody User user){
 
         if(!StringUtils.hasText(user.getUserName())){
