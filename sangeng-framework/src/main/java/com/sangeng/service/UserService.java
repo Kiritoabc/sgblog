@@ -11,9 +11,16 @@ import com.sangeng.domain.entity.User;
  * @author makejava
  * @since 2022-11-28 00:45:01
  */
+
 public interface UserService extends IService<User> {
 
     ResponseResult userInfo();
+
+    ResponseResult updateUserInfo(User user);
+
+    ResponseResult register(User user);
+
+
 
 }
 

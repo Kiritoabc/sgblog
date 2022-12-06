@@ -5,6 +5,7 @@ import com.sangeng.domain.entity.LoginUser;
 import com.sangeng.domain.entity.User;
 import com.sangeng.domain.vo.BlogUserLoginVo;
 import com.sangeng.domain.vo.UserInfoVo;
+import com.sangeng.mapper.LinkMapper;
 import com.sangeng.service.BlogLoginService;
 import com.sangeng.utils.BeanCopyUtils;
 import com.sangeng.utils.JwtUtil;
@@ -44,7 +45,6 @@ public class BlogLoginServiceImpl implements BlogLoginService {
         String jwt = JwtUtil.createJWT(userId);
         //把用户信息存入redis
         redisCache.setCacheObject("bloglogin:"+userId,loginUser);
-        System.out.println("redis调用成功");
         //把token和userinfo封装 返回
         //把User转化成UserInfoVo
         UserInfoVo userInfoVo = BeanCopyUtils.copyBean(loginUser.getUser(), UserInfoVo.class);

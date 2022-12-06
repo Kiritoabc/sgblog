@@ -14,6 +14,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
  * @author makejava
  * @since 2022-11-19 19:08:11
  */
+
+
 @SuppressWarnings("serial")
 @Data
 @AllArgsConstructor
@@ -51,8 +53,6 @@ public class User  {
     private Date updateTime;
     //删除标志（0代表未删除，1代表已删除）
     private Integer delFlag;
-
-
 
 }
 

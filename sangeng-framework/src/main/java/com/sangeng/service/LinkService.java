@@ -13,6 +13,7 @@ import com.sangeng.domain.entity.Link;
  */
 public interface LinkService extends IService<Link> {
 
+
     ResponseResult getAllLink();
 }
 

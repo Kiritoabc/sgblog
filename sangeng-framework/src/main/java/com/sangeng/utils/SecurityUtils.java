@@ -7,8 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 /**
  * @Author 三更  B站： https://space.bilibili.com/663528522
  */
-public class SecurityUtils
-{
+public class SecurityUtils {
 
     /**
      * 获取用户
@@ -32,4 +31,5 @@ public class SecurityUtils
     public static Long getUserId() {
         return getLoginUser().getUser().getId();
     }
+
 }
