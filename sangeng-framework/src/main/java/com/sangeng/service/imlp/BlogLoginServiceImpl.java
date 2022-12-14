@@ -10,6 +10,7 @@ import com.sangeng.service.BlogLoginService;
 import com.sangeng.utils.BeanCopyUtils;
 import com.sangeng.utils.JwtUtil;
 import com.sangeng.utils.RedisCache;
+import com.sangeng.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -60,6 +61,7 @@ public class BlogLoginServiceImpl implements BlogLoginService {
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
         //获取userId
         Long userId = loginUser.getUser().getId();
+//        Long userId = SecurityUtils.getUserId();  这种方式获取也行，是一样的，知识封装过了
         //删除redis中的信息
         redisCache.deleteObject("bloglogin:"+userId);
         return ResponseResult.okResult();

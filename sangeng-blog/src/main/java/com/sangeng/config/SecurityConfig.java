@@ -19,26 +19,19 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
-
-    @Autowired
-    private AccessDeniedHandler accessDeniedHandler;    //授权失败
-
-    @Autowired
-    private AuthenticationEntryPoint authenticationEntryPoint; //认证失败
-
     @Override
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
 
-    //加密算法
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder(); //加密处理
-    }
+    @Autowired
+    private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
+    @Autowired
+    AuthenticationEntryPoint authenticationEntryPoint;
+    @Autowired
+    AccessDeniedHandler accessDeniedHandler;
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -51,17 +44,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 // 对于登录接口 允许匿名访问
                 .antMatchers("/login").anonymous()
-                //配置退出接口，必须要认证过后才能退出
+                //注销接口需要认证才能访问
                 .antMatchers("/logout").authenticated()
-                //个人信息接口必须登录后才能访问
                 .antMatchers("/user/userInfo").authenticated()
+//                .antMatchers("/upload").authenticated()
                 // 除上面外的所有请求全部不需要认证即可访问
                 .anyRequest().permitAll();
 
         //配置异常处理器
         http.exceptionHandling()
-                        .authenticationEntryPoint(authenticationEntryPoint)//认证失败
-                        .accessDeniedHandler(accessDeniedHandler);  //授权失败
+                .authenticationEntryPoint(authenticationEntryPoint)
+                .accessDeniedHandler(accessDeniedHandler);
         //关闭默认的注销功能
         http.logout().disable();
         //把jwtAuthenticationTokenFilter添加到SpringSecurity的过滤器链中
@@ -70,4 +63,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors();
     }
 
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
 }

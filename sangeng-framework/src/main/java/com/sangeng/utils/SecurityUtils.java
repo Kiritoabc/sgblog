@@ -7,12 +7,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 /**
  * @Author 三更  B站： https://space.bilibili.com/663528522
  */
-public class SecurityUtils {
+public class SecurityUtils
+{
 
     /**
      * 获取用户
      **/
-    public static LoginUser getLoginUser() {
+    public static LoginUser getLoginUser()
+    {
         return (LoginUser) getAuthentication().getPrincipal();
     }
 
@@ -22,14 +24,13 @@ public class SecurityUtils {
     public static Authentication getAuthentication() {
         return SecurityContextHolder.getContext().getAuthentication();
     }
-    //判断用户是否登录
+
     public static Boolean isAdmin(){
         Long id = getLoginUser().getUser().getId();
-        return id != null && 1L == id;
+        return id != null && id.equals(1L);
     }
-    //返回用户的ID
+
     public static Long getUserId() {
         return getLoginUser().getUser().getId();
     }
-
 }
